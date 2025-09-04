@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Football Tournament</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      overflow-y: auto; /* default scroll */
+    }
+    /* Modal styles */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255 255 255 / 0.9);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: white;
+      color: #1f2937; /* Tailwind gray-800 */
+      padding: 2rem 3rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #374151; /* Tailwind gray-700 */
+      transition: color 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      color: #ef4444; /* Tailwind red-500 */
+    }
+    /* Blur background when modal open */
+    .blurred {
+      filter: blur(5px);
+      user-select: none;
+      pointer-events: none;
+      transition: filter 0.3s ease;
+    }
+  </style>
+</head>
+<body class="h-screen w-full">
+
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <div class="modal-content">
+      <button aria-label="Close modal" class="modal-close-btn" id="modalCloseBtn">&times;</button>
+      <div class="space-y-6 text-center">
+        <h2 id="modalTitle" class="text-2xl font-bold text-gray-800 mb-4">Contact Options</h2>
+        <p id="modalDesc" class="text-gray-700 text-lg">
+          Reach out to us via phone or WhatsApp:
+        </p>
+        <p class="flex items-center justify-center gap-3 text-2xl text-gray-800">
+          <i class="fas fa-phone text-red-600"></i>
+          <a href="tel:+918371878363" class="hover:underline" tabindex="0">+91 8101040181</a>
+        </p>
+        <p class="flex items-center justify-center gap-3 text-2xl text-gray-800">
+          <i class="fab fa-whatsapp text-green-600"></i>
+          <a href="https://wa.me/918371878363" target="_blank" rel="noopener" class="hover:underline" tabindex="0">+91 8101040181</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page content wrapper for blur effect -->
+  <div id="pageContent">
+    <header>
+      <div class="w-full bg-cover bg-center px-4 py-12 text-white" style="background-image: url('./images/rm.png')">
+        <h1 class="text-2xl leading-7 font-normal">
+          <span class="block text-5xl font-extrabold">Football</span>
+          <span class="block text-3xl font-extrabold">Tournament</span>
+        </h1>
+        <p class="text-sm mt-2">
+          Gear up for an adrenaline-pumping <br />
+          day of epic clashes on the pitch!
+        </p>
+        <button id="participateBtn" class="mt-10 px-4 py-2 bg-red-600 text-white font-semibold rounded hover:bg-red-800 transition">
+          Participate Now
+        </button>
+      </div>
+    </header>
+
+    <section class="py-12 bg-white text-black">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Tournament Details</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="text-5xl mb-4">📅</div>
+            <h3 class="text-xl font-semibold">Date</h3>
+            <p class="text-gray-700">07-09-2025</p>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl mb-4">📍</div>
+            <h3 class="text-xl font-semibold">Location</h3>
+            <p class="text-gray-700">Thangvanga, Mairadanga, Falakata</p>
+          </div>
+          <div class="text-center">
+            <div class="text-5xl mb-4">⏰</div>
+            <h3 class="text-xl font-semibold">Kick-off Time</h3>
+            <p class="text-gray-700">10:00 AM</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-gray-900 text-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">How to Participate</h2>
+        <div class="flex flex-col md:flex-row items-center justify-center">
+          <div class="md:w-1/2 mb-8 md:mb-0">
+            <p class="mb-4">Whether you're a player ready to dominate or a fan eager to cheer, this is your ticket to football glory!</p>
+            <ul class="list-disc list-inside mb-6">
+              <li>Register your team by 01-07-2025</li>
+              <li>Contact us at bapib.dev444@gmail.com or call +91 8101040181 for details</li>
+              <li>Bring your A-game – competition will be fierce!</li>
+            </ul>
+            <button id="registerBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded shadow-lg">Register Now</button>
+          </div>
+          <div class="md:w-1/2">
+            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9f5fc620-8a3c-40e8-8e2c-2e3ca0022b4b.png" alt="Group of diverse football players in team uniforms high-fiving after a successful match on a well-maintained grass field, with distant mountains and sunny weather, emphasizing teamwork and victory celebration" class="rounded-lg shadow-lg w-full" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+            <div class="hidden text-center mt-2">[Team Victory Image Placeholder]</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+      <section class="py-12 bg-white text-black">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Prizes</h2>
+      <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 text-center">
+        <div class="border rounded-lg p-6 shadow-lg">
+          <!-- <img src="https://w7.pngwing.com/pngs/305/154/png-transparent-trophy-football-player-football-trophy-s-medal-gold-football-player-thumbnail.png" alt="Golden trophy icon" class="mx-auto mb-4 w-20 h-38" /> -->
+          <img src="./images/pngwing.com.png" alt="Golden trophy icon" class="mx-auto mb-4 w-20 h-32" />
+          <h3 class="text-2xl font-semibold mb-2">1st Prize</h3>
+          <p class="mb-1">🏆 Trophy</p>
+          <p class="text-lg font-bold">₹3000 Cash Prize</p>
+        </div>
+        <div class="border rounded-lg p-6 shadow-lg">
+          <img src="./images/pngwing.com.png" alt="Golden trophy icon" class="mx-auto mb-4 w-20 h-32" />
+          <h3 class="text-2xl font-semibold mb-2">2nd Prize</h3>
+          <p class="mb-1">🏆 Trophy</p>
+          <p class="text-lg font-bold">₹2000 Cash Prize</p>
+        </div>
+        <div class="border rounded-lg p-6 shadow-lg">
+          <h3 class="text-2xl font-semibold mb-2">3rd Prize</h3>
+          <img src="./images/pngwing.com.png" alt="Golden trophy icon" class="mx-auto mb-4 w-20 h-32" />
+          <p class="mb-1">🏆 Trophy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="py-12 bg-gradient-to-r from-green-500 to-blue-500 text-white text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-4">Countdown to Kick-Off</h2>
+      <p class="text-xl mb-6">Don't miss the action – mark your calendars and get ready!</p>
+      <div id="countdown" class="countdown text-4xl font-mono py-4"></div>
+    </div>
+  </section>
+
+  <footer class="py-8 bg-black text-white text-center">
+    <div class="container mx-auto px-4">
+      <p>Stay tuned for more updates and match schedules. Let the best team win!</p>
+      <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c60a1aa2-08fc-4c97-aa35-38449e5e49d2.png" alt="Stylized football trophy with golden cup and base, set against a dark background with subtle light effects highlighting the victory symbol" class="mx-auto rounded mt-4 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+      <div class="hidden text-center mt-2">[Trophy Image Placeholder]</div>
+    </div>
+  </footer>
+
+    <!-- Other sections remain unchanged -->
+
+  </div>
+
+  <script>
+
+    //  Timer fn
+
+    const countdownElement = document.getElementById('countdown');
+    const targetDate = new Date('September 7, 2025 11:00:00').getTime();
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+        if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdownElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        } else {
+        countdownElement.textContent = 'Tournament has started!';
+        }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    const modal = document.getElementById('modal');
+    const pageContent = document.getElementById('pageContent');
+    const participateBtn = document.getElementById('participateBtn');
+    const registerBtn = document.getElementById('registerBtn');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    function openModal() {
+      modal.classList.add('active');
+      pageContent.classList.add('blurred');
+      // Disable scroll
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      pageContent.classList.remove('blurred');
+      // Enable scroll
+      document.body.style.overflow = '';
+    }
+
+    participateBtn.addEventListener('click', openModal);
+    registerBtn.addEventListener('click', openModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    // Close modal on clicking outside modal content
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Optional: close modal on pressing Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
